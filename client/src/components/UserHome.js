@@ -1,5 +1,6 @@
 import React from 'react'
+import Portfolio from './Portfolio'
 
-const UserHome = props => <div>hello world</div>
+const UserHome = props => <Portfolio />
 
 export default UserHome
