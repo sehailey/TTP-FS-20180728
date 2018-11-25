@@ -29,8 +29,6 @@ const User = db.define('user', {
   }
 })
 
-module.exports = User
-
 /**
  * instanceMethods
  */
@@ -65,3 +63,5 @@ const setSaltAndPassword = user => {
 
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
+
+module.exports = User

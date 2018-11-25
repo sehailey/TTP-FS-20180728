@@ -1,5 +1,5 @@
 const db = require('../db')
-const { User } = require('./models')
+const { User, Stock } = require('./models')
 
 async function seedUsers() {
   const users = await Promise.all([
@@ -18,12 +18,23 @@ async function seedUsers() {
   console.log(`seeded ${users.length} users`)
 }
 
+async function seedStocks() {
+  const stocks = await Promise.all([
+    Stock.create({ symbol: 'aapl' }),
+    Stock.create({ symbol: 'ba' })
+  ])
+}
+
 async function runSeed() {
   await db.sync({ force: true })
   console.log('db synced!')
   console.log('seeding...')
   try {
     await seedUsers()
+    await seedStocks()
+    const user = await User.findOne({ where: { email: 'sarah@email.com' } })
+    const stocks = await Stock.findAll()
+    await user.addStocks(stocks)
     console.log('seeded successfully')
   } catch (err) {
     console.error(err)

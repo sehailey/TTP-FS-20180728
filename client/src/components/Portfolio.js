@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { IEXClient } from 'iex-api'
-import * as _fetch from 'isomorphic-fetch'
+//import { IEXClient } from 'iex-api'
+//import * as _fetch from 'isomorphic-fetch'
 //import axios from 'axios'
 
-import { fetchStock } from '../store'
+//import { fetchStocks } from '../store'
 
-const iex = new IEXClient(_fetch)
-iex.stockCompany('AAPL').then(company => console.log(company))
+//const iex = new IEXClient(_fetch)
+//iex.stockCompany('AAPL').then(company => console.log(company))
 // Import socket.io with a connection to a channel (i.e. tops)
 // const socket = require('socket.io-client')(
 //   'https://ws-api.iextrading.com/1.0/tops'
@@ -45,36 +45,42 @@ iex.stockCompany('AAPL').then(company => console.log(company))
 // }
 
 class Portfolio extends Component {
-  constructor() {
-    super()
-    this.state = { stocks: [] }
-  }
   componentDidMount() {
-    this.props.getStock('aapl')
+    this.props.getStocks('aapl')
     //console.log('/components/Portfolio stocks', stocks)
   }
   render() {
+    const stocks = this.props.stocks
+    console.log('STOCKS: ', stocks)
     return (
       <div>
         <div className="ticker" />
         <footer>
           “Data provided for free by
-          <a href="https://iextrading.com/developer">IEX</a>. View IEX’s
-          <a href="https://iextrading.com/api-exhibit-a/">Terms of Use</a>.”
+          <a href="https://iextrading.com/developer"> IEX</a>. View IEX’s
+          <a href="https://iextrading.com/api-exhibit-a/"> Terms of Use</a>.”
         </footer>
       </div>
     )
   }
 }
 
+const mapState = state => {
+  return {
+    user: state.user,
+    userStocks: state.user.stocks
+  }
+}
+
 const mapDispatch = dispatch => {
   return {
-    getStock: stock => {
-      dispatch(fetchStock(stock))
+    getStocks: stock => {
+      // dispatch(fetchStocks(stock))
+      console.log('fetch stocks!')
     }
   }
 }
 export default connect(
-  null,
+  mapState,
   mapDispatch
 )(Portfolio)
