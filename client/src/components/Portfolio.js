@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import StockLine from './StockLine'
 //import { IEXClient } from 'iex-api'
 //import * as _fetch from 'isomorphic-fetch'
 //import axios from 'axios'
 
-//import { fetchStocks } from '../store'
+import { fetchUserStocks } from '../store'
 
 //const iex = new IEXClient(_fetch)
 //iex.stockCompany('AAPL').then(company => console.log(company))
@@ -45,16 +46,24 @@ import { connect } from 'react-redux'
 // }
 
 class Portfolio extends Component {
+  constructor() {
+    super()
+    this.state = { loading: true }
+  }
   componentDidMount() {
-    this.props.getStocks('aapl')
-    //console.log('/components/Portfolio stocks', stocks)
+    const user = this.props.user
+    if (user) this.props.getUserStocks(user.id)
+    if (this.props.userStocks) this.setState({ loading: false })
   }
   render() {
-    const stocks = this.props.stocks
-    console.log('STOCKS: ', stocks)
+    if (this.state.loading) return <div />
     return (
       <div>
-        <div className="ticker" />
+        <div className="userStocks">
+          {this.props.userStocks.map(stock => (
+            <StockLine key={stock.id} {...stock} />
+          ))}
+        </div>
         <footer>
           “Data provided for free by
           <a href="https://iextrading.com/developer"> IEX</a>. View IEX’s
@@ -68,15 +77,15 @@ class Portfolio extends Component {
 const mapState = state => {
   return {
     user: state.user,
-    userStocks: state.user.stocks
+    userStocks: state.userStocks
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getStocks: stock => {
-      // dispatch(fetchStocks(stock))
-      console.log('fetch stocks!')
+    getUserStocks: userId => {
+      dispatch(fetchUserStocks(userId))
+      console.log('fetch stocks for ', userId)
     }
   }
 }

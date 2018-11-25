@@ -5,8 +5,7 @@ module.exports = router
 router.post('/login', async (req, res, next) => {
   try {
     const user = await User.findOne({
-      where: { email: req.body.email },
-      include: [{ model: Stock }]
+      where: { email: req.body.email }
     })
     console.log(user)
     if (!user) {
