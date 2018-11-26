@@ -5,6 +5,10 @@ const Stock = db.define('stock', {
   symbol: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  shares: {
+    type: Sequelize.INTEGER,
+    allowNull: false
   }
 })
 
