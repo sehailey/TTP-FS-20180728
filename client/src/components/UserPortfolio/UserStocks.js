@@ -16,25 +16,25 @@ const UserStocks = props => {
   if (!totalPrice) totalPrice = 0
 
   return (
-    <div className="row">
+    <div className="col">
       <h1>{`Portfolio: $${totalPrice.toFixed(2)}`}</h1>
-      <div className="row">
-        <table className="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Ticker</th>
-              <th scope="col">Shares</th>
-              <th scope="col">Current Price</th>
-              <th scope="col">Change</th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.userStocks.map(stock => (
-              <StockLine key={stock.id} {...stock} />
-            ))}
-          </tbody>
-        </table>
-      </div>
+
+      <table className="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Ticker</th>
+            <th scope="col">Current Price</th>
+            <th scope="col">Change Since Open</th>
+            <th scope="col">Shares</th>
+            <th scope="col">Total Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          {props.userStocks.map(stock => (
+            <StockLine key={stock.id} {...stock} />
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }

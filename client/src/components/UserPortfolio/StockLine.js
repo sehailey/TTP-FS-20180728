@@ -1,12 +1,17 @@
 import React from 'react'
 
 const StockLine = props => {
-  const { symbol, quantity, currentPrice } = props
+  const { symbol, quantity, currentPrice, openPrice } = props
+  if (!currentPrice) return <div />
   console.log(props)
-
+  const change = (currentPrice - openPrice).toFixed(2)
   return (
     <tr>
       <td>{symbol}</td>
+      <td>{`$${currentPrice.toFixed(2)}`}</td>
+      <td className={change < 0 ? 'text-danger' : 'text-success'}>{`${
+        currentPrice < 0 ? '-' : '+'
+      }$${change}`}</td>
       <td>{`${quantity} Shares`}</td>
       <td>{`$${(currentPrice * quantity).toFixed(2)}`}</td>
     </tr>

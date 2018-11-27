@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-const getPrice = stocks => {
+const getCurrentPrice = stocks => {
   if (stocks.length === 0) return 0
   if (stocks.length === 1) return stocks[0].quantity * stocks[0].currentPrice
   if (stocks.length > 1)
@@ -10,20 +10,30 @@ const getPrice = stocks => {
       .reduce((a, b) => a + b)
 }
 
+const getPurchasePrice = stocks => {
+  if (stocks.length === 0) return 0
+  if (stocks.length === 1) return stocks[0].totalPurchasePrice
+  if (stocks.length > 1)
+    return stocks.map(stock => stock.totalPurchasePrice).reduce((a, b) => a + b)
+}
+
 const UserMoney = props => {
   const { user, userStocks } = props
 
-  let portfolioValue = getPrice(userStocks)
-  let userMoney = user.money + portfolioValue
+  let portfolioValue = getCurrentPrice(userStocks)
+  let purchasePrice = getPurchasePrice(userStocks)
+  console.log(
+    'portfolioValue:',
+    portfolioValue,
+    'purchasePrice:',
+    purchasePrice,
+    'profit:',
+    portfolioValue - purchasePrice
+  )
+  let userMoney = user.money + (portfolioValue - purchasePrice)
   const formatted = userMoney.toFixed(2)
 
-  return (
-    <div className="row">
-      <div className="col">
-        <h6>{`Balance: $${formatted}`}</h6>
-      </div>
-    </div>
-  )
+  return <h6>{`Balance: $${formatted}`}</h6>
 }
 
 const mapState = state => {

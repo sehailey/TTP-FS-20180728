@@ -26,14 +26,16 @@ router.get('/:id/stocks', async (req, res, next) => {
 router.post('/:id/purchase', async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { id: req.params.id } })
-    console.log(user.email)
+    console.log(user.money)
     const { stock, quantity } = req.body
     const price = stock.latestPrice
     const symbol = stock.symbol
     const totalPrice = price * quantity
+    const newUserMoney = user.money - totalPrice
+    console.log('NEW MONEY SHOULD BE', newUserMoney)
     const newStock = await Stock.create({ symbol, quantity, price })
     await user.addStock(newStock)
-    await user.update({ money: user.money - totalPrice })
+    await user.update({ money: newUserMoney })
     res.status(201).json(newStock)
   } catch (err) {
     next(err)

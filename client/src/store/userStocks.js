@@ -44,6 +44,8 @@ export const fetchUserStocks = userId => async dispatch => {
         symbol: stock.symbol,
         purchasePrice: stock.price,
         quantity: stock.quantity,
+        openPrice: marketStocks[stock.symbol].quote.open,
+        totalPurchasePrice: stock.totalPrice,
         currentPrice: marketStocks[stock.symbol].quote.latestPrice
       })
     )

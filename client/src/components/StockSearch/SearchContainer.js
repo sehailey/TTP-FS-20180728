@@ -31,7 +31,7 @@ class SearchContainer extends Component {
 
   render() {
     return (
-      <div>
+      <div className="col h-75">
         <UserMoney money={this.props.user.money} />
         <SearchForm
           handleChange={this.handleChange}
@@ -44,7 +44,7 @@ class SearchContainer extends Component {
           {...this.state}
         />
 
-        <div className="col">{this.props.error}</div>
+        <div>{this.props.error}</div>
       </div>
     )
   }

@@ -8,7 +8,7 @@ const App = () => {
       <header>
         <Navbar />
       </header>
-      <main role="main" className="container">
+      <main role="main" className="container-fluid">
         <Routes />
       </main>
       <footer className="footer bg-dark">

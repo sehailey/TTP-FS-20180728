@@ -30,12 +30,8 @@ class Portfolio extends Component {
 
     return (
       <div className="row">
-        <div className="col">
-          <PortfolioContainer {...this.props} />
-        </div>
-        <div className="col">
-          <SearchContainer {...this.props} />
-        </div>
+        <PortfolioContainer {...this.props} />
+        <SearchContainer {...this.props} />
       </div>
     )
   }

@@ -36,20 +36,19 @@ const SearchResults = props => {
 
         <p className="card-subtitle">{`data as of ${latestTime}`}</p>
 
-        <div className="row">
-          <label htmlFor="quantity" className="col-4 col-form-label">
-            Amount to Purchase:
-          </label>
+        <label htmlFor="quantity" className="col-4 col-form-label">
+          Amount to Purchase:
+        </label>
 
-          <input
-            className="col-2 form-control"
-            type="number"
-            min="0"
-            value={quantity}
-            onChange={handleChange}
-            id="quantity"
-          />
-        </div>
+        <input
+          className="col-2 form-control"
+          type="number"
+          min="0"
+          value={quantity}
+          onChange={handleChange}
+          id="quantity"
+        />
+
         <p className="card-text">{`Total cost: $${totalPrice}`}</p>
         <p
           className={`card-text ${
