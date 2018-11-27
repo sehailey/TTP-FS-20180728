@@ -1,5 +1,5 @@
 const db = require('../db')
-const { User } = require('./models')
+const { User, Stock } = require('./models')
 
 async function seedUsers() {
   const users = await Promise.all([
@@ -24,6 +24,19 @@ async function runSeed() {
   console.log('seeding...')
   try {
     await seedUsers()
+    const user = await User.findOne({ where: { email: 'sarah@email.com' } })
+    // const stock0 = await Stock.create({
+    //   symbol: 'AAPL',
+    //   quantity: 6,
+    //   price: 174.55
+    // })
+    // const stock1 = await Stock.create({
+    //   symbol: 'BA',
+    //   quantity: 40,
+    //   price: 33.55
+    // })
+    // await user.addStock(stock0)
+    // await user.addStock(stock1)
     console.log('seeded successfully')
   } catch (err) {
     console.error(err)

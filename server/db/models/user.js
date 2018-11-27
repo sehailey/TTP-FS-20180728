@@ -26,10 +26,14 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+
+  money: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 5000
   }
 })
-
-module.exports = User
 
 /**
  * instanceMethods
@@ -65,3 +69,5 @@ const setSaltAndPassword = user => {
 
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
+
+module.exports = User
