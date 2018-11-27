@@ -25,6 +25,13 @@ class Portfolio extends Component {
     console.log('COMPONENTDIDMOUNT')
   }
 
+  componentWillUpdate() {
+    console.log('COMPONENTWILLUPDATE')
+  }
+
+  componentDidUpdate() {
+    console.log('COMPONENTDIDUPDATE')
+  }
   render() {
     if (this.state.loading) return <div />
 

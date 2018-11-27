@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 const getCurrentPrice = stocks => {
+  console.log('GETCURRENTPRICE', stocks)
   if (stocks.length === 0) return 0
   if (stocks.length === 1) return stocks[0].quantity * stocks[0].currentPrice
   if (stocks.length > 1)
@@ -11,6 +12,7 @@ const getCurrentPrice = stocks => {
 }
 
 const getPurchasePrice = stocks => {
+  console.log('GETPURCHASEPRICE', stocks)
   if (stocks.length === 0) return 0
   if (stocks.length === 1) return stocks[0].totalPurchasePrice
   if (stocks.length > 1)

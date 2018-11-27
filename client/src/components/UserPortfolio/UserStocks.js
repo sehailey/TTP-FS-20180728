@@ -11,9 +11,16 @@ const getPrice = stocks => {
       .reduce((a, b) => a + b)
 }
 const UserStocks = props => {
-  if (!props.userStocks.length) return <div>You don't have any stocks.</div>
   let totalPrice = getPrice(props.userStocks)
   if (!totalPrice) totalPrice = 0
+
+  const noStocks = () => (
+    <tr>
+      <td>You don't have any stocks.</td>
+    </tr>
+  )
+  const stocks = () =>
+    props.userStocks.map(stock => <StockLine key={stock.id} {...stock} />)
 
   return (
     <div className="col">
@@ -29,11 +36,7 @@ const UserStocks = props => {
             <th scope="col">Total Value</th>
           </tr>
         </thead>
-        <tbody>
-          {props.userStocks.map(stock => (
-            <StockLine key={stock.id} {...stock} />
-          ))}
-        </tbody>
+        <tbody>{props.userStocks.length ? stocks() : noStocks()}</tbody>
       </table>
     </div>
   )

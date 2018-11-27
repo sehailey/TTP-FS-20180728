@@ -62,9 +62,17 @@ export const purchaseStock = (userId, stock, quantity) => async dispatch => {
       stock,
       quantity
     })
-
-    dispatch(purchasedStock(data))
-    console.log(data)
+    const newStock = {
+      id: +data.id,
+      symbol: data.symbol,
+      purchasePrice: +data.price,
+      quantity: +data.quantity,
+      openPrice: +data.price,
+      totalPurchasePrice: +data.totalPrice,
+      currentPrice: +data.price
+    }
+    dispatch(purchasedStock(newStock))
+    console.log('THESE SHOULD BE DIFFERENT', data, newStock)
   } catch (error) {
     return error
   }
@@ -73,13 +81,13 @@ export const purchaseStock = (userId, stock, quantity) => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = defaultUserStocks, action) {
+export default function(userStocks = defaultUserStocks, action) {
   switch (action.type) {
   case GOT_USER_STOCKS:
     return action.userStocks
   case PURCHASED_STOCK:
-    return state.concat(action.stock)
+    return [...userStocks, action.stock]
   default:
-    return state
+    return userStocks
   }
 }

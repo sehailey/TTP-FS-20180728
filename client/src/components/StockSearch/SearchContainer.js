@@ -32,7 +32,7 @@ class SearchContainer extends Component {
   render() {
     return (
       <div className="col h-75">
-        <UserMoney money={this.props.user.money} />
+        <UserMoney />
         <SearchForm
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
