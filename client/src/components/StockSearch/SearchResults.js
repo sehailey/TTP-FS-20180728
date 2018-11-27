@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { setError } from '../../store'
 
 const SearchResults = props => {
-  console.log('PROPS', props)
   const stock = props.selectedStock
   if (!stock.symbol) return <div />
 

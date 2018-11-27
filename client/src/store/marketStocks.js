@@ -7,7 +7,7 @@ const GOT_MARKET_STOCKS = 'GOT_MARKET_STOCKS'
 /**
  * INITIAL STATE
  */
-const defaultMarketStocks = {}
+const defaultMarketStocks = []
 
 /**
  * ACTION CREATORS
@@ -22,12 +22,11 @@ export const gotMarketStocks = marketStocks => ({
  */
 
 export const fetchMarketStocks = stockString => async dispatch => {
-  console.log('STOCKSTRING', stockString)
   try {
     const { data } = await axios.get(
       `https://api.iextrading.com/1.0/stock/market/batch?symbols=${stockString}&types=quote`
     )
-    dispatch(gotMarketStocks(data))
+    dispatch(gotMarketStocks(Object.values(data)))
   } catch (error) {
     console.log(error)
   }

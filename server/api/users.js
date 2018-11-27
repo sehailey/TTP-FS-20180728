@@ -26,15 +26,15 @@ router.get('/:id/stocks', async (req, res, next) => {
 router.post('/:id/purchase', async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { id: req.params.id } })
-    console.log(req.body)
+    console.log(user.email)
     const { symbol, quantity, price } = req.body
-    console.log('XXXXXXXXXXXXX ', symbol, quantity, price)
-    user.addStock({
+    const stock = await Stock.create({
       symbol,
-      quantity,
-      price
+      quantity: parseInt(quantity),
+      price: parseFloat(price)
     })
-    res.status(201).json(user)
+    await user.addStock(stock)
+    res.status(201).json(stock)
   } catch (err) {
     next(err)
   }

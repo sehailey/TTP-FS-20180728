@@ -18,23 +18,25 @@ async function seedUsers() {
   console.log(`seeded ${users.length} users`)
 }
 
-async function seedStocks() {
-  const stocks = await Promise.all([
-    Stock.create({ symbol: 'AAPL', quantity: 6, price: 174.55 }),
-    Stock.create({ symbol: 'BA', quantity: 40, price: 33.55 })
-  ])
-}
-
 async function runSeed() {
   await db.sync({ force: true })
   console.log('db synced!')
   console.log('seeding...')
   try {
     await seedUsers()
-    await seedStocks()
     const user = await User.findOne({ where: { email: 'sarah@email.com' } })
-    const stocks = await Stock.findAll()
-    await user.addStocks(stocks)
+    const stock0 = await Stock.create({
+      symbol: 'AAPL',
+      quantity: 6,
+      price: 174.55
+    })
+    const stock1 = await Stock.create({
+      symbol: 'BA',
+      quantity: 40,
+      price: 33.55
+    })
+    await user.addStock(stock0)
+    await user.addStock(stock1)
     console.log('seeded successfully')
   } catch (err) {
     console.error(err)

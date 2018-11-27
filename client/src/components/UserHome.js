@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { UserStocks } from './UserPortfolio'
+import { PortfolioContainer } from './UserPortfolio'
 import { SearchContainer } from './StockSearch'
 
 import { fetchUserStocks, fetchMarketStocks } from '../store'
@@ -10,19 +10,29 @@ class Portfolio extends Component {
     super()
     this.state = { loading: true }
   }
-  componentDidMount() {
+
+  async fetchData() {
     const user = this.props.user
     if (user) {
-      this.props.getUserStocks(user.id)
+      await this.props.getUserStocks(user.id)
+      const stockString = await this.props.user.stocks
+        .map(stock => stock.symbol)
+        .join(',')
+      await this.props.getMarketStocks(stockString)
     }
-    this.setState({ loading: false })
+  }
+  componentDidMount() {
+    this.fetchData()
   }
 
   render() {
+    console.log(this.props.marketStocks)
+    if (this.state.loading) return <div />
+
     return (
       <div className="row">
         <div className="col">
-          <UserStocks {...this.props} />
+          <PortfolioContainer {...this.props} />
         </div>
         <div className="col">
           <SearchContainer {...this.props} />

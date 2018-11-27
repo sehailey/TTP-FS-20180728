@@ -1,20 +1,19 @@
 import React from 'react'
 import StockLine from './StockLine'
-import { connect } from 'react-redux'
 
 const UserStocks = props => {
-  const { userStocks } = props
-  const stockString = userStocks.map(stock => stock.symbol).join(',')
-  if (stockString && !props.marketStocks)
-    this.props.getMarketStocks(stockString)
+  const { marketStocks, userStocks } = props
 
-  if (!props.marketStocks) return <div />
+  if (!marketStocks.length) return <div>You don't have any stocks.</div>
+  let totalPrice = 0
+
+  console.log(totalPrice)
 
   // console.log(totalMoney)
 
   return (
     <div className="row">
-      <h1>Portfolio: $5,000.00</h1>
+      <h1>{`Portfolio: $${totalPrice.toFixed(2)}`}</h1>
       <div className="row">
         <table className="table table-hover">
           <thead>
@@ -26,9 +25,19 @@ const UserStocks = props => {
             </tr>
           </thead>
           <tbody>
-            {userStocks.map(stock => (
-              <StockLine key={stock.id} {...stock} />
-            ))}
+            {userStocks.map(stock => {
+              const marketStock = marketStocks.find(
+                stk => stk.quote.symbol === stock.symbol
+              ).quote
+
+              return (
+                <StockLine
+                  key={stock.id}
+                  quantity={stock.quantity}
+                  {...marketStock}
+                />
+              )
+            })}
           </tbody>
         </table>
       </div>
