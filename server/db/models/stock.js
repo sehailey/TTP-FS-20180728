@@ -6,9 +6,18 @@ const Stock = db.define('stock', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  shares: {
+  quantity: {
     type: Sequelize.INTEGER,
     allowNull: false
+  },
+  price: {
+    type: Sequelize.DECIMAL(10, 2)
+  },
+  totalPrice: {
+    type: Sequelize.VIRTUAL,
+    get() {
+      return this.getDataValue('price') * this.getDataValue('quantity')
+    }
   }
 })
 

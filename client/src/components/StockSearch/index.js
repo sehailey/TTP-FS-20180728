@@ -1,1 +1,1 @@
-export { default as StockSearchForm } from './StockSearchForm'
+export { default as SearchContainer } from './SearchContainer'

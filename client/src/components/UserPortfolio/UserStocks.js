@@ -1,8 +1,17 @@
 import React from 'react'
 import StockLine from './StockLine'
+import { connect } from 'react-redux'
 
-const StockList = props => {
+const UserStocks = props => {
   const { userStocks } = props
+  const stockString = userStocks.map(stock => stock.symbol).join(',')
+  if (stockString && !props.marketStocks)
+    this.props.getMarketStocks(stockString)
+
+  if (!props.marketStocks) return <div />
+
+  // console.log(totalMoney)
+
   return (
     <div className="row">
       <h1>Portfolio: $5,000.00</h1>
@@ -12,7 +21,7 @@ const StockList = props => {
             <tr>
               <th scope="col">Ticker</th>
               <th scope="col">Shares</th>
-              <th scope="col">Price</th>
+              <th scope="col">Current Price</th>
               <th scope="col">Change</th>
             </tr>
           </thead>
@@ -23,16 +32,8 @@ const StockList = props => {
           </tbody>
         </table>
       </div>
-
-      {/* <div className="col">
-          {this.state.selectedStock ? (
-            <div>stock selected</div>
-          ) : (
-            <div>no stock selected </div>
-          )}
-        </div> */}
     </div>
   )
 }
 
-export default StockList
+export default UserStocks

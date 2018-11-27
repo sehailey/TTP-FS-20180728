@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { UserStocks } from './UserPortfolio'
-import { StockSearchForm } from './StockSearch'
+import { SearchContainer } from './StockSearch'
 
-import { fetchUserStocks } from '../store'
+import { fetchUserStocks, fetchMarketStocks } from '../store'
 
 class Portfolio extends Component {
   constructor() {
@@ -15,18 +15,17 @@ class Portfolio extends Component {
     if (user) {
       this.props.getUserStocks(user.id)
     }
-    if (this.props.userStocks) this.setState({ loading: false })
+    this.setState({ loading: false })
   }
 
   render() {
-    if (this.state.loading) return <div />
     return (
       <div className="row">
         <div className="col">
           <UserStocks {...this.props} />
         </div>
         <div className="col">
-          <StockSearchForm {...this.props} />
+          <SearchContainer {...this.props} />
         </div>
       </div>
     )
@@ -36,7 +35,8 @@ class Portfolio extends Component {
 const mapState = state => {
   return {
     user: state.user,
-    userStocks: state.userStocks
+    userStocks: state.userStocks,
+    marketStocks: state.marketStocks
   }
 }
 
@@ -44,7 +44,9 @@ const mapDispatch = dispatch => {
   return {
     getUserStocks: userId => {
       dispatch(fetchUserStocks(userId))
-      console.log('fetch stocks for ', userId)
+    },
+    getMarketStocks: stockString => {
+      dispatch(fetchMarketStocks(stockString))
     }
   }
 }

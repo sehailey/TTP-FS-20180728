@@ -1,12 +1,12 @@
 import React from 'react'
 
 const StockLine = props => {
-  const { symbol } = props
+  const { symbol, quantity, price, totalPrice } = props
   return (
     <tr>
       <td>{symbol}</td>
-      <td>1 Shares</td>
-      <td>$5324.00</td>
+      <td>{`${quantity} Shares`}</td>
+      <td>{`$${totalPrice.toFixed(2)}`}</td>
     </tr>
   )
 }
