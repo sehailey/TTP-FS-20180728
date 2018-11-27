@@ -2,7 +2,6 @@ import React from 'react'
 
 const StockLine = props => {
   const { symbol, quantity, currentPrice, openPrice } = props
-  console.log(props, currentPrice, 'STOCKLINE')
   if (!currentPrice) return <tr />
 
   const change = (currentPrice - openPrice).toFixed(2)

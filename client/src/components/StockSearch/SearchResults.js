@@ -26,7 +26,6 @@ const SearchResults = props => {
       dispatchPurchaseStock(userId, stock, quantity)
     }
   }
-  //console.log('Stock:', stock, 'quantity:', quantity, 'userMoney:', userMoney)
   return (
     <div className="card">
       <div className="card-body">
