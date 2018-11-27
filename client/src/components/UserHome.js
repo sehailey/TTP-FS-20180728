@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { PortfolioContainer } from './UserPortfolio'
 import { SearchContainer } from './StockSearch'
 
-import { fetchUserStocks, fetchMarketStocks } from '../store'
+import { fetchUserStocks } from '../store'
 
 class Portfolio extends Component {
   constructor() {
@@ -23,7 +23,6 @@ class Portfolio extends Component {
   }
 
   render() {
-    console.log(this.props.marketStocks)
     if (this.state.loading) return <div />
 
     return (
@@ -51,9 +50,6 @@ const mapDispatch = dispatch => {
   return {
     getUserStocks: userId => {
       dispatch(fetchUserStocks(userId))
-    },
-    getMarketStocks: stockString => {
-      dispatch(fetchMarketStocks(stockString))
     }
   }
 }
