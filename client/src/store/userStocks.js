@@ -29,9 +29,25 @@ export const purchasedStock = stock => ({
 
 export const fetchUserStocks = userId => async dispatch => {
   try {
-    const { data } = await axios.get(`api/users/${userId}/stocks`)
+    const userStocksRes = await axios.get(`api/users/${userId}/stocks`)
+    const userStocks = userStocksRes.data
+    const stockString = userStocks.map(stock => stock.symbol).join(',')
+    const marketStocksRes = await axios.get(
+      `https://api.iextrading.com/1.0/stock/market/batch?symbols=${stockString}&types=quote`
+    )
+    const marketStocks = marketStocksRes.data
 
-    dispatch(gotUserStocks(data))
+    const stockz = []
+    userStocks.map(stock =>
+      stockz.push({
+        id: stock.id,
+        symbol: stock.symbol,
+        purchasePrice: stock.price,
+        quantity: stock.quantity,
+        currentPrice: marketStocks[stock.symbol].quote.latestPrice
+      })
+    )
+    dispatch(gotUserStocks(stockz))
   } catch (error) {
     return error
   }

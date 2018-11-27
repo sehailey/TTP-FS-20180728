@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 class PortfolioContainer extends Component {
   componentDidMount() {
-    let stocks = this.props.marketStocks
+    let stocks = this.props.userStocks
     console.log('MOUNT', stocks)
     // this.props.userStocks.map(stock => {
     //   const marketStock = this.props.marketStocks.find(

@@ -15,10 +15,7 @@ class Portfolio extends Component {
     const user = this.props.user
     if (user) {
       await this.props.getUserStocks(user.id)
-      const stockString = await this.props.user.stocks
-        .map(stock => stock.symbol)
-        .join(',')
-      await this.props.getMarketStocks(stockString)
+      this.setState({ loading: false })
     }
   }
   componentDidMount() {
