@@ -50,7 +50,7 @@ class SearchContainer extends Component {
   }
 }
 
-const mapState = state => ({ user: state.user })
+const mapState = state => ({ user: state.user, userStocks: state.userStocks })
 const mapDispatch = dispatch => ({
   dispatchPurchaseStock: (userId, stock, quantity) =>
     dispatch(purchaseStock(userId, stock, quantity)),
