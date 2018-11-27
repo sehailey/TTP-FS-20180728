@@ -4,6 +4,7 @@ import setError from './error'
  * ACTION TYPES
  */
 const FOUND_STOCK = 'FOUND_STOCK'
+const CLEAR_STOCK = 'CLEAR_STOCK'
 
 /**
  * INITIAL STATE
@@ -17,6 +18,12 @@ export const foundStock = stock => ({
   type: FOUND_STOCK,
   stock
 })
+
+export const clearStock = () => ({
+  type: CLEAR_STOCK
+})
+
+//export const clearStock = () => dispatch => dispatch(clearStock())
 
 /**)
  * THUNK CREATORS
@@ -45,6 +52,8 @@ export default function(state = defaultStock, action) {
   switch (action.type) {
   case FOUND_STOCK:
     return action.stock
+  case CLEAR_STOCK:
+    return {}
   default:
     return state
   }

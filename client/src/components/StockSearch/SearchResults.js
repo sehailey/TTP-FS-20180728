@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setError, purchaseStock } from '../../store'
+import { setError, purchaseStock, clearStock } from '../../store'
 
 const SearchResults = props => {
   const stock = props.selectedStock
@@ -68,8 +68,10 @@ const SearchResults = props => {
 
 const mapState = state => ({ ...state })
 const mapDispatch = dispatch => ({
-  dispatchPurchaseStock: (userId, stock, quantity) =>
-    dispatch(purchaseStock(userId, stock, quantity)),
+  dispatchPurchaseStock: (userId, stock, quantity) => {
+    dispatch(purchaseStock(userId, stock, quantity))
+    dispatch(clearStock())
+  },
   dispatchSetError: error => dispatch(setError(error))
 })
 export default connect(

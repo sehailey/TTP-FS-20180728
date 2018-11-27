@@ -72,7 +72,6 @@ export const purchaseStock = (userId, stock, quantity) => async dispatch => {
       currentPrice: +data.price
     }
     dispatch(purchasedStock(newStock))
-    console.log('THESE SHOULD BE DIFFERENT', data, newStock)
   } catch (error) {
     return error
   }

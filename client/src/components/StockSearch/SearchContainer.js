@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SearchForm from './SearchForm'
 import SearchResults from './SearchResults'
-import UserMoney from './UserMoney'
 import { searchForStock, purchaseStock } from '../../store'
 
 const defaultState = {
@@ -30,9 +29,10 @@ class SearchContainer extends Component {
   }
 
   render() {
+    const userMoney = this.props.getUserMoney()
     return (
       <div className="col h-75">
-        <UserMoney />
+        <h4>{`Cash: $${userMoney.toFixed(2)}`}</h4>
         <SearchForm
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}

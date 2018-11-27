@@ -10,7 +10,7 @@ const getPrice = stocks => {
       .map(stock => stock.quantity * stock.currentPrice)
       .reduce((a, b) => a + b)
 }
-const UserStocks = props => {
+const PortfolioContainer = props => {
   let totalPrice = getPrice(props.userStocks)
   if (!totalPrice) totalPrice = 0
 
@@ -24,7 +24,7 @@ const UserStocks = props => {
 
   return (
     <div className="col">
-      <h1>{`Portfolio: $${totalPrice.toFixed(2)}`}</h1>
+      <h4>{`Portfolio: $${totalPrice.toFixed(2)}`}</h4>
 
       <table className="table table-hover">
         <thead>
@@ -48,4 +48,4 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(UserStocks)
+export default connect(mapState)(PortfolioContainer)

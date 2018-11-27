@@ -25,3 +25,5 @@ export * from './user'
 export * from './error'
 export * from './userStocks'
 export * from './selectedStock'
+
+export { clearStock } from './selectedStock'
