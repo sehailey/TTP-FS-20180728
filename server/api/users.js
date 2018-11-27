@@ -27,14 +27,15 @@ router.post('/:id/purchase', async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { id: req.params.id } })
     console.log(user.email)
-    const { symbol, quantity, price } = req.body
-    const stock = await Stock.create({
-      symbol,
-      quantity: parseInt(quantity),
-      price: parseFloat(price)
-    })
-    await user.addStock(stock)
-    res.status(201).json(stock)
+    res.status(201).json(req.body)
+    const { stock, quantity } = req.body
+    const price = stock.latestPrice
+    const symbol = stock.symbol
+    const totalPrice = price * quantity
+    const newStock = await Stock.create({ symbol, quantity, price })
+    await user.addStock(newStock)
+    await user.update({ money: user.money - totalPrice })
+    res.status(201).json(newStock)
   } catch (err) {
     next(err)
   }

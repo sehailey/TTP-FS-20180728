@@ -56,7 +56,10 @@ export const fetchUserStocks = userId => async dispatch => {
 export const purchaseStock = (userId, stock, quantity) => async dispatch => {
   try {
     console.log('NOW PURCHASING', userId, stock.symbol, quantity)
-    const { data } = await axios.post(`api/users/${userId}/purchase`, stock)
+    const { data } = await axios.post(`api/users/${userId}/purchase`, {
+      stock,
+      quantity
+    })
     //dispatch(purchasedStock(data))
     console.log(data)
   } catch (error) {
