@@ -11,6 +11,11 @@ class Portfolio extends Component {
     this.state = { loading: true }
   }
 
+  componentWillMount() {
+    console.log('COMPONENTWILLMOUNT')
+    this.fetchData()
+  }
+
   async fetchData() {
     const user = this.props.user
     if (user) {
@@ -19,7 +24,7 @@ class Portfolio extends Component {
     }
   }
   componentDidMount() {
-    this.fetchData()
+    console.log('COMPONENTDIDMOUNT')
   }
 
   render() {

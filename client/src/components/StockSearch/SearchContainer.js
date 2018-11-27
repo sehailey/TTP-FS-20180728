@@ -55,7 +55,6 @@ const mapDispatch = dispatch => ({
   dispatchPurchaseStock: (userId, stock, quantity) =>
     dispatch(purchaseStock(userId, stock, quantity)),
   dispatchSearchForStock: ticker => dispatch(searchForStock(ticker))
-  // dispatch(purchaseStock(userId, stock, quantity))
 })
 
 export default connect(

@@ -27,7 +27,6 @@ router.post('/:id/purchase', async (req, res, next) => {
   try {
     const user = await User.findOne({ where: { id: req.params.id } })
     console.log(user.email)
-    res.status(201).json(req.body)
     const { stock, quantity } = req.body
     const price = stock.latestPrice
     const symbol = stock.symbol

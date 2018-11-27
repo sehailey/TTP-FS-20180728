@@ -1,12 +1,20 @@
 import React from 'react'
 import StockLine from './StockLine'
+import { connect } from 'react-redux'
 
+const getPrice = oldStocks => {
+  const stocks = oldStocks.slice(0)
+  if (stocks.length === 0) return 0
+  if (stocks.length === 1) return stocks[0].quantity * stocks[0].price
+  if (stocks.length > 1)
+    return stocks
+      .map(stock => stock.quantity * stock.currentPrice)
+      .reduce((a, b) => a + b)
+}
 const UserStocks = props => {
-  const { userStocks } = props
-
-  if (!userStocks.length) return <div>You don't have any stocks.</div>
-  let totalPrice = 0
-  userStocks.map(stock => (totalPrice += stock.currentPrice * stock.quantity))
+  if (!props.userStocks.length) return <div>You don't have any stocks.</div>
+  let totalPrice = getPrice(props.userStocks)
+  if (!totalPrice) totalPrice = 0
 
   return (
     <div className="row">
@@ -22,7 +30,7 @@ const UserStocks = props => {
             </tr>
           </thead>
           <tbody>
-            {userStocks.map(stock => (
+            {props.userStocks.map(stock => (
               <StockLine key={stock.id} {...stock} />
             ))}
           </tbody>
@@ -32,4 +40,10 @@ const UserStocks = props => {
   )
 }
 
-export default UserStocks
+const mapState = state => {
+  return {
+    userStocks: state.userStocks
+  }
+}
+
+export default connect(mapState)(UserStocks)

@@ -1,12 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setError } from '../../store'
+import { setError, purchaseStock } from '../../store'
 
 const SearchResults = props => {
   const stock = props.selectedStock
   if (!stock.symbol) return <div />
 
-  const { quantity, handleChange, dispatchSetError, purchaseStock } = props
+  const {
+    quantity,
+    handleChange,
+    dispatchSetError,
+    dispatchPurchaseStock
+  } = props
   const userMoney = props.user.money
   const userId = props.user.id
 
@@ -17,7 +22,9 @@ const SearchResults = props => {
 
   const validatePurchase = props => {
     if (remainingUserMoney < 0) dispatchSetError('You don\'t have enough funds.')
-    else purchaseStock(userId, stock, quantity)
+    else {
+      dispatchPurchaseStock(userId, stock, quantity)
+    }
   }
   //console.log('Stock:', stock, 'quantity:', quantity, 'userMoney:', userMoney)
   return (
@@ -62,6 +69,8 @@ const SearchResults = props => {
 
 const mapState = state => ({ ...state })
 const mapDispatch = dispatch => ({
+  dispatchPurchaseStock: (userId, stock, quantity) =>
+    dispatch(purchaseStock(userId, stock, quantity)),
   dispatchSetError: error => dispatch(setError(error))
 })
 export default connect(

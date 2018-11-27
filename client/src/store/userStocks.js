@@ -60,7 +60,8 @@ export const purchaseStock = (userId, stock, quantity) => async dispatch => {
       stock,
       quantity
     })
-    //dispatch(purchasedStock(data))
+
+    dispatch(purchasedStock(data))
     console.log(data)
   } catch (error) {
     return error
@@ -74,6 +75,8 @@ export default function(state = defaultUserStocks, action) {
   switch (action.type) {
   case GOT_USER_STOCKS:
     return action.userStocks
+  case PURCHASED_STOCK:
+    return state.concat(action.stock)
   default:
     return state
   }
