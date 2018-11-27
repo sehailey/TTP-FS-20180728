@@ -18,10 +18,8 @@ class Portfolio extends Component {
 
   async fetchData() {
     const user = this.props.user
-    if (user) {
-      await this.props.getUserStocks(user.id)
-      this.setState({ loading: false })
-    }
+    await this.props.getUserStocks(user.id)
+    this.setState({ loading: false })
   }
   componentDidMount() {
     console.log('COMPONENTDIDMOUNT')
