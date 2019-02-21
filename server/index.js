@@ -51,9 +51,6 @@ const createApp = () => {
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
 
-  // compression middleware
-  // app.use(compression())
-
   // session middleware with passport
   app.use(
     session({
@@ -94,6 +91,16 @@ const createApp = () => {
     console.error(err)
     console.error(err.stack)
     res.status(err.status || 500).send(err.message || 'Internal server error.')
+  })
+}
+
+if (process.env.NODE_ENV === 'production') {
+  // Exprees will serve up production assets
+  app.use(express.static('client/build'))
+
+  // Express serve up index.html file if it doesn't recognize route
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
   })
 }
 

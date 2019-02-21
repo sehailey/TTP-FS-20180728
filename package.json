@@ -10,7 +10,7 @@
     "server": "nodemon server",
     "client": "cd client && npm run start",
     "dev": "NODE_ENV=development && concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "prod": "concurrently --kill-others-on-fail \"npm run start\" \"npm run client\"",
+    "prod": "NODE_ENV=production && concurrently --kill-others-on-fail \"npm run start\" \"npm run client\"",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "Sarah Hailey",
