@@ -67,7 +67,7 @@ const setSaltAndPassword = user => {
   }
 }
 
-User.beforeCreate(setSaltAndPassword)
-User.beforeUpdate(setSaltAndPassword)
+//User.beforeCreate(setSaltAndPassword)
+//User.beforeUpdate(setSaltAndPassword)
 
 module.exports = User

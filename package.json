@@ -16,7 +16,7 @@
   "author": "Sarah Hailey",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "concurrently": "^4.1.0",
     "connect-session-sequelize": "^6.0.0",
     "express": "^4.16.4",
@@ -26,6 +26,6 @@
     "passport": "^0.4.0",
     "passport-google-oauth": "^1.0.0",
     "pg": "^7.6.1",
-    "sequelize": "^5.3.1"
+    "sequelize": "^6.0.0"
   }
 }
